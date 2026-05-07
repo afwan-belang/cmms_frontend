@@ -1,13 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import MainLayout from './layouts/MainLayout';
+// PATH IMPORT MAINLAYOUT BERUBAH KE FOLDER TEMPLATES
+import MainLayout from './components/templates/MainLayout';
 import Assets from './pages/Assets';
-import Dashboard from './pages/Dashboard';    // <-- Import Dashboard
-import WorkOrders from './pages/WorkOrders';  // <-- Import WorkOrders
+import Dashboard from './pages/Dashboard';
+import WorkOrders from './pages/WorkOrders';
 
 const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-    return user ? children : <Navigate to="/login" />;
+    
+    // Harus ada TOKEN dan USER, baru boleh masuk
+    return (token && user) ? children : <Navigate to="/login" />;
 };
 
 function App() {
@@ -24,7 +28,6 @@ function App() {
                     
                     <Route path="assets" element={<Assets />} />
                     
-                    {/* Rute baru Work Orders */}
                     <Route path="work-orders" element={<WorkOrders />} />
                     
                 </Route>
