@@ -1,6 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'; // 1. Ganti ke HashRouter
 import Login from './pages/Login';
-// PATH IMPORT MAINLAYOUT BERUBAH KE FOLDER TEMPLATES
 import MainLayout from './components/templates/MainLayout';
 import Assets from './pages/Assets';
 import Dashboard from './pages/Dashboard';
@@ -10,13 +9,13 @@ const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
     
-    // Harus ada TOKEN dan USER, baru boleh masuk
     return (token && user) ? children : <Navigate to="/login" />;
 };
 
 function App() {
     return (
-        <BrowserRouter>
+        // 2. Gunakan HashRouter di sini
+        <HashRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
 
@@ -32,7 +31,7 @@ function App() {
                     
                 </Route>
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
